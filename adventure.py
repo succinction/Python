@@ -8,15 +8,15 @@ MAP_SIZE = 24
 monsters = []
 level = [1]
 def generate_monster():
-	posr = random.randrange(24)
-	posc = random.randrange(24)
+	posr = random.randrange(23)
+	posc = random.randrange(23)
 	monsters.append({ 'position': [posr,posc],  
 						'avatar': ' ƒ' ,
 						'type':'Troll',
 						'level': level[0],
 						'health': 100 * level[0],
 						'inventory':
-						[{'type':'weapon','name':'Club','damage':7},
+						[{'type':'weapon','name':'Club','damage':7 + (4*level[0])},
 						{'type':'shield','name':'Shield','damage':15}] })
 	level[0] = level[0] + 1
 
@@ -24,6 +24,7 @@ generate_monster()
 
 ##################################################################
 
+# WEAPON DICTIONARY
 def new_weapon(lvl):
 	return [
 		{'type':'weapon','name':'Sword','damage':7 * lvl},
@@ -32,15 +33,13 @@ def new_weapon(lvl):
 		{'type':'weapon','name':'Reaper','damage':7 * lvl}
 	][lvl%4]
 
-
-
+#  CREATE PLAYER
 health = 100
 gold = 5
 inventory = [{'type':'weapon','name':'Axe','damage':10},
 			{'type':'shield','name':'Shield','damage':15}]
 player = {'name': 'ZORK', 'inventory':inventory, 'health': health, 'gold': gold}
 # player['inventory'][0] = new_weapon(level[0])
-
 
 
 
@@ -117,8 +116,6 @@ def header():
 # VARIABLE
 current_position = [10,1024]
 
-# IF MODE == ROAM: MOVE
-# IF MODE == FIGHT: ATTACK HERO
 
 def monster_move():
 	m = 0
@@ -136,7 +133,6 @@ def monster_move():
 		monsters[m]['position'][0] = 22
 	else:
 		monsters[m]['position'][0] += random.choice([-1,0,1])
-	#
 	if  monsters[m]['position'][1] < 2:
 		monsters[m]['position'][1] = 2
 	elif monsters[m]['position'][1] > 22:
@@ -182,7 +178,6 @@ def monster_attack():
 		game_over(False)
 	message_key[2] = 'dmg ' + str(monsters[0]['inventory'][0]['damage'])
 
-
 ################################################################################
 def player_attack(arg):
 	print(arg)
@@ -207,9 +202,8 @@ def cast_spell(spell = ''):
 		player_attack(spell)
 	mapit()
 
-
-
-
+# IF MODE == ROAM: MOVE
+# IF MODE == FIGHT: ATTACK HERO
 monster_modes = ['ROAM','FIGHT']
 monster_mode = monster_modes[0]
 def monster_go():
@@ -218,7 +212,6 @@ def monster_go():
 		monster_mode = monster_modes[1]
 	else:
 		monster_mode = monster_modes[0]
-
 	if monster_mode == 'ROAM':
 		head[0] = 0
 		monster_move()
@@ -236,7 +229,6 @@ def mapit(row = current_position[0] , col = current_position[1]):
 
 	ind = MAP_SIZE - row
 	### MONSTER
-	# monster_go()
 	m = 0
 	mon_row = monsters[m]['position'][0] 
 	mon_col = monsters[m]['position'][1]
@@ -246,14 +238,10 @@ def mapit(row = current_position[0] , col = current_position[1]):
 	newrow += monsters[m]['avatar']
 	newrow += map_rows[mon_row][(mon_colm)*2 : ]
 	map_rows[mon_row] = newrow
-	###
 	for r in range(row):
 		print(map_rows[r], r)
 	colm = get_index_from_bit(col)
 	newrow  = map_rows[row][ : (colm-1)*2]
-	# if " ." add gold elif " ," add 10 gold
-
-
 	if map_rows[row][ (colm-1)*2:(colm)*2 ] == ' .':
 		player['gold'] += 1
 		message_key[0] = 'g1'
@@ -263,13 +251,9 @@ def mapit(row = current_position[0] , col = current_position[1]):
 	elif map_rows[row][ (colm-1)*2:(colm)*2 ] == ' x':
 		# if input("Loot courpse? y ").lower() == 'y' :
 		player['inventory'][0] = new_weapon(level[0])
-
 		message_key[0] = 'looted'
-
 	else:
 		message_key[0] = ''
-
-
 	newrow += trail
 	newrow += map_rows[row][(colm)*2 : ]
 	map_rows[row] = newrow
@@ -280,11 +264,8 @@ def mapit(row = current_position[0] , col = current_position[1]):
 	for x in range(1, ind):
 		print( map_rows[row + x] , row + x )
 	hud()
-	# map_monster()
-
 
 # INITIATE APP
-#header()
 mapit()
 
 # CALCULATE TRANSLATION OF current_position
@@ -337,18 +318,11 @@ def move(arg):
 	# header(0)
 	mapit(current_position[0], current_position[1])
 
-# 123
-# 456
-# 789
-
 def heal_self(arg = '9'):
 	print(arg)
 	player['gold'] = player['gold'] - int(arg)
 	player['health'] = player['health'] + int(arg)
 	monster_go()
-
-	
-
 
 # USER INPUT LOOP
 while True:

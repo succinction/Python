@@ -15,7 +15,7 @@ print(list_comp, sum(list_comp))
 
 
 
-
+# nums
 
 
 

@@ -92,10 +92,11 @@ for r in range(MAP_SIZE):
 head = [0]
 # HEADER TEMPLATES
 def header():
+	print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 	if head[0] == 0:
-		print("################################################## ")
-		print("################ A D V E N T U R E ############### ")
-		print("################################################## ")
+		print("############################################ Move: 123 | 123")
+		print("################ A D V E N T U R E ##########nsew# q*e | 4*6")
+		print("################################################## asd | 789")
 	elif head[0] == 1:
 		print("################################################## ")
 		print("################# A SPELL IS CAST ################ ")
@@ -140,9 +141,9 @@ def monster_move():
 	else:
 		monsters[m]['position'][1] += random.choice([-1,0,1])
 
-def check_proximity():
+def check_proximity(arg = 2):
 	# if ....
-	if abs(monsters[0]['position'][0] - current_position[0]) < 2 and 2 > abs(monsters[0]['position'][1] - get_index_from_bit(current_position[1]) ) :
+	if abs(monsters[0]['position'][0] - current_position[0]) < arg and arg > abs(monsters[0]['position'][1] - get_index_from_bit(current_position[1]) ) :
 		return True
 	return False
 	# pass
@@ -181,26 +182,17 @@ def monster_attack():
 ################################################################################
 def player_attack(arg):
 	print(arg)
-	if check_proximity():
-		if arg == 'kill':
-			monsters[0]['health'] = monsters[0]['health'] - (player['inventory'][0]['damage'] * 10)
-			head[0] = 2
-		else:
-			monsters[0]['health'] = monsters[0]['health'] - int(player['inventory'][0]['damage'] * (player['gold'] * .01 ))
-		if check_death(monsters[0]['health']):
-			game_over(True)
+	# if check_proximity():
+	if arg == 'kill':
+		monsters[0]['health'] = monsters[0]['health'] - (player['inventory'][0]['damage'] * 10)
+		head[0] = 2
+	else:
+		monsters[0]['health'] = monsters[0]['health'] - int(player['inventory'][0]['damage'] * (player['gold'] * .01 ))
+	if check_death(monsters[0]['health']):
+		game_over(True)
 	monster_go()
 	mapit(current_position[0], current_position[1])
 ################################################################################
-
-def cast_spell(spell = ''):
-	if spell[:5] == 'black':
-		player_attack('kill')
-	elif spell[:5] == 'orang':
-		pass
-	elif spell == '':
-		player_attack(spell)
-	mapit()
 
 # IF MODE == ROAM: MOVE
 # IF MODE == FIGHT: ATTACK HERO
@@ -323,6 +315,26 @@ def heal_self(arg = '9'):
 	player['gold'] = player['gold'] - int(arg)
 	player['health'] = player['health'] + int(arg)
 	monster_go()
+
+
+def cast_spell(spell = ''):
+	if spell[:5] == 'black':
+		if check_proximity():
+			player_attack('kill')
+	elif spell[:5] == 'orang':
+		if check_proximity():
+			player_attack(spell)
+
+	elif spell[:5] == 'death':
+		if check_proximity(20):
+			player_attack('kill')
+
+	elif spell == '':
+		if check_proximity():
+			player_attack(spell)
+		
+	mapit()
+
 
 # USER INPUT LOOP
 while True:

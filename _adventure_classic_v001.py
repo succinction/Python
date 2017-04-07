@@ -4,71 +4,19 @@ import random
 MAP_SIZE = 24
 
 ##################################################################
-
-
-message_key = ['', '', '']
-
-### MESSAGE DICTIONARY 
-def message(x, additional = ''):
-	return {
-	'cast': 'Magic spell cast, doing some damage.',
-	'h': 'You have been healed',
-	'g90': 'Gained 90 Gold.',
-	'g50': 'Gained 50 Gold.',
-	'g20': 'Gained 20 Gold.',
-	'g7': 'Gained 7 Gold.',
-	'g5': 'Gained 5 Gold.',
-	'g1': 'Gained 1 Gold.',
-	'm1': 'Fight monster: {} with {}({}) HP:{} '
-		.format(monsters[0]['type'], monsters[0]['inventory'][0]['name'], monsters[0]['inventory'][0]['damage'], monsters[0]['health']),
-	'.':'Nothing to say.',
-	'':'',
-	'killedit':'You have slain the monster!',
-	'looted':'You have looted the corpse',
-	'dmg': '- DAMAGE = '
-	}[x] + additional
-
-
-def m_type(lvl):
-	return [
-		'Lizard Man',
-		'Dragon Breath',
-		'Kraken',
-		'Sith Lord',
-		'Skeleton',
-		'Lock Ness',
-		'T-Rex',
-		'Hydra'
-	][ (random.randrange(23) + lvl) % 8]
-
-
-def w_name(lvl):
-	return [
-		'Club',
-		'Axe',
-		'Bite',
-		'Tenticle',
-		'Sword',
-		'Lance',
-		'Hatchet',
-		'Chainsaw'
-	][ (random.randrange(23) + lvl) % 8]
-
-
 # MONSTER
 monsters = []
 level = [1]
 def generate_monster():
-	posr = random.randrange(20)
-	posc = random.randrange(20)
+	posr = random.randrange(23)
+	posc = random.randrange(23)
 	monsters.append({ 'position': [posr,posc],  
 						'avatar': ' ƒ' ,
-						# 'type':'Troll',
-						'type': m_type(level[0]),
+						'type':'Troll',
 						'level': level[0],
 						'health': 100 * level[0],
 						'inventory':
-						[{'type':'weapon','name': w_name(level[0]),'damage':7 + (4*level[0])},
+						[{'type':'weapon','name':'Club','damage':7 + (4*level[0])},
 						{'type':'shield','name':'Shield','damage':15}] })
 	level[0] = level[0] + 1
 
@@ -81,12 +29,9 @@ def new_weapon(lvl):
 	return [
 		{'type':'weapon','name':'Sword','damage':7 * lvl},
 		{'type':'weapon','name':'Spear','damage':7 * lvl},
-		{'type':'weapon','name':'Hammer','damage':7 * lvl},
-		{'type':'weapon','name':'Lance','damage':7 * lvl},
-		{'type':'weapon','name':'Axe','damage':7 * lvl},
 		{'type':'weapon','name':'Flail','damage':7 * lvl},
 		{'type':'weapon','name':'Reaper','damage':7 * lvl}
-	][ (random.randrange(23) + lvl ) % 7]
+	][lvl%4]
 
 #  CREATE PLAYER
 health = 100
@@ -96,6 +41,26 @@ inventory = [{'type':'weapon','name':'Axe','damage':10},
 player = {'name': 'ZORK', 'inventory':inventory, 'health': health, 'gold': gold}
 # player['inventory'][0] = new_weapon(level[0])
 
+
+
+message_key = ['', '', '']
+
+
+
+					
+def message(x, additional = ''):
+	return {
+	'cast': 'Magic spell cast, doing some damage.',
+	'g5': 'Gained 5 Gold.',
+	'g1': 'Gained 1 Gold.',
+	'm1': 'Fight monster: {} with {} HP:{} '
+		.format(monsters[0]['type'], monsters[0]['inventory'][0]['name'], monsters[0]['health']),
+	'.':'Nothing to say.',
+	'':'',
+	'killedit':'You have slain the monster!',
+	'looted':'You have looted the corpse',
+	'dmg': '- DAMAGE = '
+	}[x] + additional
 
 
 # STATS
@@ -123,13 +88,11 @@ map_row = " . . . . . . . . . . . . . . . . . . . . . . . ."
 map_rows = []
 for r in range(MAP_SIZE):
 	map_rows.append(map_row)
-frame_i = [0]
+
 head = [0]
 # HEADER TEMPLATES
 def header():
 	# print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-	frame_i[0] += 1
-	print('Frame # {}'.format(frame_i[0]))
 	if head[0] == 0:
 		print("############################################ Move: 123 | 123")
 		print("################ A D V E N T U R E ##########nsew# q*e | 4*6")
@@ -143,8 +106,6 @@ def header():
 		print("################ MONSTER ATTACKED ################ ")
 		print("################################################## ")
 	elif head[0] == 3:
-
-		print("Killed by {}.         Don't forget to heal.".format(monsters[0]['type']))
 		print("################################################## ")
 		print("################ !!!!YOU DIED!!!! ################ ")
 		print("################################################## ")
@@ -158,61 +119,27 @@ current_position = [10,1024]
 
 
 def monster_move():
-
-
 	m = 0
 	mon_row = monsters[m]['position'][0] 
 	mon_col = monsters[m]['position'][1]
 	mon_ind = MAP_SIZE - mon_row
 	mon_colm = mon_col
-
-##
-
+	newrow  = map_rows[mon_row][ : (mon_colm-1)*2]
+	newrow += ' ,'
+	newrow += map_rows[mon_row][(mon_colm)*2 : ]
+	map_rows[mon_row] = newrow
 	if monsters[m]['position'][0] < 1 :
 		monsters[m]['position'][0] = 1
 	elif monsters[m]['position'][0] > 22:
 		monsters[m]['position'][0] = 22
 	else:
 		monsters[m]['position'][0] += random.choice([-1,0,1])
-		#
 	if  monsters[m]['position'][1] < 2:
 		monsters[m]['position'][1] = 2
 	elif monsters[m]['position'][1] > 22:
 		monsters[m]['position'][1] = 22
 	else:
 		monsters[m]['position'][1] += random.choice([-1,0,1])
-
-	newrow  = map_rows[mon_row][ : (mon_colm-1)*2]
-
-	terr  =   map_rows[mon_row][(monsters[m]['position'][1]-1) * 2 : ((monsters[m]['position'][1]-1) * 2)+2 ]
-	
-	print('terr : "{}" '.format(terr) )
-	if    terr == ' •':
-		newrow += ' œ'
-	elif  terr == ' *':
-		newrow += ' •'
-	elif  terr == ' @':
-		newrow += ' *'
-	elif  terr == ' ,':
-		newrow += ' @'
-	elif  terr == '  ':
-		newrow += ' œ'
-	elif  terr == ' œ':
-		newrow += ' ¥'
-	elif  terr == ' ¥':
-		newrow += '::'
-	elif  terr == '::':
-		newrow += '::'
-	else:
-		newrow += ' ,'
-
-	newrow += map_rows[mon_row][(mon_colm)*2 : ]
-	map_rows[mon_row] = newrow
-
-
-
-
-
 
 
 def check_proximity(arg = 2):
@@ -251,38 +178,20 @@ def monster_attack():
 		game_over(False)
 	message_key[2] = 'dmg ' + str(monsters[0]['inventory'][0]['damage'])
 
-
 ################################################################################
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-
-
 def player_attack(arg):
 	print(arg)
 	# if check_proximity():
 	if arg == 'kill':
 		monsters[0]['health'] = monsters[0]['health'] - (player['inventory'][0]['damage'] * 10)
 		head[0] = 2
-	elif arg.lower() == 'zork':
-		monsters[0]['health'] = monsters[0]['health'] - (player['inventory'][0]['damage'] * 90)
-		head[0] = 2
-
 	else:
 		monsters[0]['health'] = monsters[0]['health'] - int(player['inventory'][0]['damage'] * (player['gold'] * .01 ))
 	if check_death(monsters[0]['health']):
 		game_over(True)
 	monster_go()
 	mapit(current_position[0], current_position[1])
-
-
 ################################################################################
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-
 
 # IF MODE == ROAM: MOVE
 # IF MODE == FIGHT: ATTACK HERO
@@ -324,32 +233,13 @@ def mapit(row = current_position[0] , col = current_position[1]):
 		print(map_rows[r], r)
 	colm = get_index_from_bit(col)
 	newrow  = map_rows[row][ : (colm-1)*2]
-	thisrow = map_rows[row][ (colm-1)*2:(colm)*2 ]
-	if thisrow == ' .':
+	if map_rows[row][ (colm-1)*2:(colm)*2 ] == ' .':
 		player['gold'] += 1
 		message_key[0] = 'g1'
-	elif thisrow == ' •':
-		player['gold'] += 7
-		message_key[0] = 'g7'
-	elif thisrow == '::':
-		player['gold'] += 19
-		message_key[0] = 'g90'
-	elif thisrow == ' œ':
-		player['gold'] += 9
-		message_key[0] = 'g50'
-	elif thisrow == ' ¥':
-		player['gold'] += 11
-		message_key[0] = 'g20'
-	elif thisrow == ' @':
-		player['health'] += 3
-		message_key[0] = 'h'
-	elif thisrow == ' *':
-		player['health'] += 6
-		message_key[0] = 'h'
-	elif thisrow == ' ,':
+	elif map_rows[row][ (colm-1)*2:(colm)*2 ] == ' ,':
 		player['gold'] += 5
 		message_key[0] = 'g5'
-	elif thisrow == ' x':
+	elif map_rows[row][ (colm-1)*2:(colm)*2 ] == ' x':
 		player['inventory'][0] = new_weapon(level[0])
 		message_key[0] = 'looted'
 	else:
@@ -428,17 +318,11 @@ def heal_self(arg = '9'):
 
 
 def cast_spell(spell = ''):
-
 	if spell[:5] == 'black':
-		if check_proximity(4):
+		if check_proximity():
 			player_attack('kill')
-
-	elif spell[:4] == 'five':
-		if check_proximity(5):
-			player_attack(spell)
-
-	elif spell[:6] == 'orange':
-		if check_proximity(9):
+	elif spell[:5] == 'orang':
+		if check_proximity():
 			player_attack(spell)
 
 	elif spell[:5] == 'death':
@@ -446,13 +330,8 @@ def cast_spell(spell = ''):
 			player_attack('kill')
 
 	elif spell == '':
-		if check_proximity(3):
-			player_attack(spell)
-
-	else :
 		if check_proximity():
 			player_attack(spell)
-
 		
 	mapit()
 
@@ -461,15 +340,15 @@ def cast_spell(spell = ''):
 while True:
 	command = input("Type Command: ( n s e w (at)tack cast heal x:exit )\n>>> ").lower()
 
-	if command[:2] == 'at' or 't' == command[:1] :
+	if command[:2] == 'at':
 		player_attack(command[command.find(" ")+1:])
 	elif command[:4] == 'cast':
 		cast_spell(command[5:])
 		head[0] = 1
 		mapit(current_position[0], current_position[1])
-	elif command[:4] == 'heal' or 'h ' == command[:2] :
+	elif command[:4] == 'heal':
 		if len(command) > 4:
-			heal_self(command[command.find(' '):])
+			heal_self(command[5:])
 		else:
 			heal_self()
 		head[0] = 0
@@ -478,8 +357,7 @@ while True:
 	else:
 		for i in range(len(command)):
 			if command[i] == 'x':
-				if input('      Are you sure you want to quit? (c) ') == 'c'  :
-					quit()
+				quit()
 			elif command[i] == 'n' or '2' == command[i] :
 				move(2) 
 			elif command[i] == 's' or '8' == command[i] :

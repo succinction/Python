@@ -1,3 +1,5 @@
+
+
 ## ADVENTURE.PY ##################################################
 ##################################################################
 import random
@@ -39,7 +41,7 @@ def m_type(lvl):
         ('Kraken', " §", ".,•º ∞*:"),
         ('Mage', " π", " ,º ∞* .;"),
         ('Sith Lord', " £", " .,*;"),
-        ('Skeleton', " ¥", ". ,"),
+        ('Skeleton', " ¥", ". •*"),
         ('Wizard', " §", " .,•º∞*;"),
         ('Lock Ness', " ∫", ".,• º∞*;"),
         ('T-Rex', " £", ".,•º∞*:"),
@@ -70,8 +72,8 @@ level = [0]
 def generate_monster():
     level[0] = level[0] + 1
     m_typ = m_type(level[0])
-    posr = random.randrange(20)
-    posc = random.randrange(20)
+    posr = random.randrange(2, 20)
+    posc = random.randrange(2, 20)
     monsters.append({'position': [posr, posc],
                      'type': m_typ[0],
                      'avatar': m_typ[1],
@@ -142,16 +144,12 @@ def reincarnate():
     print("################################################## ")
     print("################################################## ")
     hud()
-
     verdict = input('Reincarnate? ( any key or (n)o ) : ')
     if verdict.lower() == 'n':
         quit()
-
-
     player['health'] = 100
     current_position[0] = 10
     current_position[1] = 1024
-
     head[0] = 5
     mapit(current_position[0], current_position[1])
 
@@ -161,7 +159,7 @@ def hud():
     print("LEFT : {} {}  HEALTH: {}  {}".format(player['inventory'][0]['name'], player['inventory'][0]['damage'],
                                                 player['health'],
                                                 message(message_key[2][:3], message_key[2][message_key[2].find(' '):])))
-    print("RIGHT: {}   GOLD  : {} ".format(player['inventory'][1]['name'], player['gold']))
+    print("RIGHT: {}    GOLD  : {} ".format(player['inventory'][1]['name'], player['gold']))
     # print(":POTION ^(f)                  (r)^ STAFF:")
     print(message(message_key[1]), message(message_key[0]))
 
@@ -398,13 +396,12 @@ def monster_go():
 # GENERATE MAP
 def mapit(row=current_position[0], col=current_position[1]):
     header()
-
     ind = MAP_SIZE - row
     ### MONSTER
     m = 0
     mon_row = monsters[m]['position'][0]
     mon_col = monsters[m]['position'][1]
-    mon_ind = MAP_SIZE - mon_row
+    # mon_ind = MAP_SIZE - mon_row
     mon_colm = mon_col
     newrow = map_rows[mon_row][: (mon_colm - 1) * 2]
     newrow += monsters[m]['avatar']
@@ -434,7 +431,6 @@ def mapit(row=current_position[0], col=current_position[1]):
     elif thisrow == ' º':
         player['health'] += 33
         message_key[0] = 'h'
-
     elif thisrow == ' *':
         player['health'] += 26
         message_key[0] = 'h'
@@ -469,6 +465,9 @@ def move(arg):
     if arg == 2:  # 'n'
         if current_position[0] > 0:
             current_position[0] = current_position[0] - 1
+        current_position[1] = current_position[1]
+    elif arg == 0:  # 's' | '8' :
+        current_position[0] = current_position[0]
         current_position[1] = current_position[1]
     elif arg == 8:  # 's' | '8' :
         if current_position[0] < 23:
@@ -555,13 +554,13 @@ def cast_spell(spell=''):
 
 # USER INPUT LOOP
 while True:
-    command = input("Type Command: ( n s e w a(t)tack cast heal x:exit )\n>>> ").lower()
+    command = input("Type Command: ( n s e w a(t)tack cast heal x:exit )\n>>> ")
 
-    if command[:2] == 'at' or 't' == command[:1] or command[:1] == 'w' or ' ' == command[:1]:
+    if command[:2] == 'at' or 't' == command[:1] or command[:1] == 'w' or ' ' == command[:1] or '' == command[:1]:
         if check_proximity():
             player_attack(command[command.find(" ") + 1:])
         else:
-            cast_spell('zero')
+            move(0)
 
     elif command[:4] == 'cast':
         cast_spell(command[5:])
@@ -582,13 +581,13 @@ while True:
             if command[i] == 'x':
                 if input('      Are you sure you want to quit? (c) ') == 'c':
                     quit()
-            elif command[i] == 'n' or '2' == command[i]:
+            elif command[i] == 'n' or '2' == command[i] or 'A' == command[i]:
                 move(2)
-            elif command[i] == 's' or '8' == command[i]:
+            elif command[i] == 's' or '8' == command[i] or 'B' == command[i]:
                 move(8)
-            elif command[i] == 'e' or '6' == command[i]:
+            elif command[i] == 'e' or '6' == command[i] or 'C' == command[i]:
                 move(6)
-            elif command[i] == 'q' or '4' == command[i]:
+            elif command[i] == 'q' or '4' == command[i] or 'D' == command[i]:
                 move(4)
             elif command[i] == '1':
                 move(1)
@@ -600,8 +599,7 @@ while True:
                 move(9)
 
             # NEXT:
-# MONSTER MAPPING WITH RANDOM MOTION move in realtime
-# ITEM AQUISITION, weapons, potions, scrolls allow spell casting
-# RANDOM LEVEL ENEMIES ROAMING | FIGHTING MODE
+# Multiple MONSTERs
+#
 # 
 ##################################################################

@@ -317,8 +317,8 @@ def check_death(arg):
 def game_over(win):
     if win:
         head[0] = 4
-        m0 = monsters[0]['position'][0]
-        m1 = monsters[0]['position'][1]
+        m0 = monsters[0].position[0]
+        m1 = monsters[0].position[1]
         new_row = map_rows[m0][:(m1 - 1) * 2]
         new_row += ' x'
         new_row += map_rows[m0][m1 * 2:]

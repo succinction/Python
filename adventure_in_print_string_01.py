@@ -1,0 +1,7 @@
+##########################
+
+# Objects:
+# Player
+# Monsters
+
+# Game

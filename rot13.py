@@ -6,25 +6,28 @@
 # str = "this is string example....wow!!!";
 # print str.translate(trantab)
 
+from string import ascii_letters
+
 
 def cypher(word, rotate):
-    single =   "abcdefghijklmnopqrstuvwxyz"
+    # single =   "abcdefghijklmnopqrstuvwxyz"
+    single = ascii_letters
     double = single + single
-    # rot = 13 % 26
-    rot = int(rotate) % 26
-    rotated = double[rot:rot+26]
+    rot = int(rotate) % 52
+    rotated = double[rot:rot+52]
     intab = single
     outtab = rotated
     trantab = str.maketrans(intab, outtab)
-    new_phrase = word.lower().translate(trantab)
+    new_phrase = word.translate(trantab)
     print(new_phrase)
     return new_phrase
 
 def decypher(word, rotate):
-    single =   "abcdefghijklmnopqrstuvwxyz"
+    # single =   "abcdefghijklmnopqrstuvwxyz"
+    single = ascii_letters
     double = single + single
-    rot = int(rotate) % 26
-    rotated = double[rot:rot+26]
+    rot = int(rotate) % 52
+    rotated = double[rot:rot+52]
     intab = rotated
     outtab = single
     trantab = str.maketrans(intab, outtab)

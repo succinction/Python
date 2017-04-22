@@ -13,7 +13,7 @@ print(tuple[2])
 dictionary = {'key1': 123, 'key2': 456}
 print(dictionary['key1'])
 #######################
-print("################")
+print("################ rng = list(range(10))")
 
 rng = list(range(10))
 print(rng)
@@ -32,10 +32,11 @@ for i in range(len(lst3)):
     print('\b\b\bindex: {}, value: {}'.format(i, lst3[i]))
 
 print("#######4#########")
-lsst = [32,"hi"]
+lsst = [3, 2,"hi"]
 
 num = input('what is your fav num? : ')
 lsst.append(int(num))
-removed = lsst.pop(0)
+removed = lsst.pop(2)
 print(lsst)
 print(removed)
+# print()

@@ -21,19 +21,21 @@
 # # CHASE DANIELS ####################################
 
 
-# def choose_longer(*args):
-# 	string = ''
-# 	for x in range(len(args)):
-# 		if x+1 < len(args):
-# 			if (len(args[x]) > len(args[x+1])):
-# 			 	string = args[x]
-# 			else:
-# 			 	string = args[x+1]
-# 	print(string)
-# # Return the longest.
-# # >>> 
-# choose_longer("Greg", "Rooney", "darth vader")
-# 'Rooney'
+def choose_longer(*args):
+    string = ''
+    for x in range(len(args)):
+        if x + 1 < len(args):
+            if (len(args[x]) > len(args[x + 1])):
+                string = args[x]
+            else:
+                string = args[x + 1]
+    print(string)
+
+
+# Return the longest.
+# >>>
+choose_longer("Greg", "Rooney", "darth vader")
+'Rooney'
 
 """
 Calculate the smallest number of coins needed to represent an amount of cents
@@ -101,10 +103,9 @@ Hammer: 10PM - 4AM
 # 	else:
 # 		mealtime(int(tm))
 
-
-def combine_many(*args):
-    print(sum(args))
-combine_many(980, 667, 4432, 788, 122, 9, 545, 222, 1)
-# combine_many(combine_many1)
-
-
+#
+# def combine_many(*args):
+#     print(sum(args))
+# combine_many(980, 667, 4432, 788, 122, 9, 545, 222, 1)
+# # combine_many(combine_many1)
+#

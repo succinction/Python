@@ -1,4 +1,5 @@
 import requests
+# ? requires install of requests with pip ?
 
 zip_code = input('enter a zip code: ')
 units = "imperial" if input("Celseus : c | Fahrenheit : f ? ") == 'f' else "metric"

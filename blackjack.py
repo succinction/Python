@@ -1,28 +1,83 @@
 from collections import deque
 from random import shuffle
 
-suits = ["Diamonds", "Clubs", "Hearts", "Spades"]
+suits = ["Spades", "Hearts", "Diamonds", "Clubs"]
+
 rank = {"Ace": 1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10, "Jack":10, "Queen":10, "King":10}
 
-# rank = {1: "Ace", 2:"2", 3:"3", 4:"4", 5:"5", 6:"6", 7:"7", 8:"8", 9:"9", 10:"10", 11:"Jack", 12:"Queen", 13:"King"}
+
+card_faces = {
+'back': '🂠',
+'sa' :'🂡',
+'s2' :'🂢',
+'s3' :'🂣',
+'s4' :'🂤',
+'s5' :'🂥',
+'s6' :'🂦',
+'s7' :'🂧',
+'s8' :'🂨',
+'s9' :'🂩',
+'s1':'🂪',
+'sj':'🂫',
+'sq':'🂭',
+'sk':'🂮',
+'ha' :'🂱',
+'h2' :'🂲',
+'h3' :'🂳',
+'h4' :'🂴',
+'h5' :'🂵',
+'h6' :'🂶',
+'h7' :'🂷',
+'h8' :'🂸',
+'h9' :'🂹',
+'h1':'🂺',
+'hj':'🂻',
+'hq':'🂽',
+'hk':'🂾',
+'da' :'🃁',
+'d2' :'🃂',
+'d3' :'🃃',
+'d4' :'🃄',
+'d5' :'🃅',
+'d6' :'🃆',
+'d7' :'🃇',
+'d8' :'🃈',
+'d9' :'🃉',
+'d1':'🃊',
+'dj':'🃋',
+'dq':'🃍',
+'dk':'🃎',
+'ca' :'🃑',
+'c2' :'🃒',
+'c3' :'🃓',
+'c4' :'🃔',
+'c5' :'🃕',
+'c6' :'🃖',
+'c7' :'🃗',
+'c8' :'🃘',
+'c9' :'🃙',
+'c1':'🃚',
+'cj':'🃛',
+'cq':'🃝',
+'ck':'🃞'}
+
 
 
 class Card:
-    def __init__(self, s, r, v):
+    def __init__(self, s, r, v, f):
         self.rank = r
         self.suit = s
         self.value = v
+        self.face = f
 
     def __str__(self):
-        return self.rank + " of " + self.suit
+        return self.face + " " + self.rank + " of " + self.suit
 
     def __repr__(self):
-        return self.rank + " of " + self.suit
-
+        return self.face + " " + self.rank + " of " + self.suit
 
 class Deck:
     def __init__(self):
-        # self.cards = deque()
         self.cards = deque(self.initialize_deck())
 
     def __repr__(self):
@@ -32,11 +87,7 @@ class Deck:
         return 'Deck: {} {} cards'.format(self.cards, len(self.cards))
 
     def initialize_deck(self):
-
-        return [Card(s,r,v) for s in suits for r, v in rank.items()]
-        # for s in suits:
-        #     for r, v in rank.items():
-        #         self.cards.append(Card(s, r, v))
+        return [Card(s, r, v, card_faces[s[0].lower() + str(r[0]).lower()]) for s in suits for r, v in rank.items()]
 
     def shuffle_deck(self):
         print("shuffling deque")
@@ -47,29 +98,55 @@ class Deck:
         return self.cards.popleft()
 
 
+
+
 class Hand:
     def __init__(self):
         self.cards = []
 
     def __repr__(self):
-        return 'Hand: {}'.format(self.cards)
+        return 'Hand: {} Score: {}'.format(self.cards, self.score())
 
     def __str__(self):
-        return 'Hand: {}'.format(self.cards)
+        return 'Hand: {} Score: {}'.format(self.cards, self.score())
 
     def add_card(self, card):
         self.cards.append(card)
 
+    def score(self):
+        ace = 0
+        soft = False
+        sum =0
+        for card in self.cards:
+            if "Ace" == card.rank:
+                ace += 1
+                continue
+            else:
+                sum += card.value
+        if ace > 0:
+            for card in self.cards:
+                if "Ace" == card.rank:
+                    if sum < 10 + ace:
+                        soft = True
+                        sum += 11
+                    else:
+                        sum += 1
+                else:
+                    continue
+                    # sum += card.value
+        # return sum + (soft * " soft")
+        return "{} {}".format(("Soft" if soft else "Hard"), sum)
+
 
 class Dealer_hand(Hand):
     def __init__(self):
-        super().__init__()
+        Hand.__init__(self)
 
     def __repr__(self):
-        return 'Dealer Hand: {} {} '.format(" unrevealed card ", self.cards[1:])
+        return 'Dealer Hand: {} {} {}'.format(" unrevealed card ", self.cards[1:], self.score())
 
     def __str__(self):
-        return 'Dealer Hand: {} {} '.format(" unrevealed card ", self.cards[1:])
+        return 'Dealer Hand: {} {} {}'.format(" unrevealed card ", self.cards[1:], self.score())
 
 
 class Game21:
@@ -96,9 +173,19 @@ class Game21:
 
     def deal(self):
         self.deck.shuffle_deck()
-        for duce in range(2):
+        for deal_duce in range(2):
             for player, hand in self.table.items():
                 self.table[player].add_card(self.deck.deal_card())
+
+    def render_table(self):
+        print("#### Game of 21 ####")
+        print()
+        print("{}".format(self.table["Dealer"]))
+
+        for i in range(self.num_players):
+            print("")
+            print("{} {}".format( "Player"+str(i), self.table["Player"+str(i+1)]) )
+
 
 
 #             or
@@ -122,9 +209,17 @@ contraband = Deck()
 g = Game21(3, contraband)
 g.deal()
 print(g)
-
-
-
-
-# print(contraband.cards)
+player = ''
+status = ""
+while True:
+    g.render_table()
+#
+    print(status)
+#
+    play = input("{}, Hit or Hold? ".format(player))
+#
+    if play.lower() == "hit":
+#
+        g.table[player].add_card(g.deck.deal_card())
+        # player
 

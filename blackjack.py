@@ -1,66 +1,66 @@
-from collections import deque
+from collections import deque, namedtuple
 from random import shuffle
 
 suits = ["Spades", "Hearts", "Diamonds", "Clubs"]
+Ranks = namedtuple('Ranks', 'Ace Two Three Four Five Six Seven Eight Nine Ten Jack Queen King')
+rank = Ranks(Ace=1, Two=2, Three=3, Four=4, Five=5, Six=6, Seven=7, Eight=8, Nine=9, Ten=10, Jack=10, Queen=10, King=10)
 
-rank = {"Ace": 1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10, "Jack":10, "Queen":10, "King":10}
-
+# rank = {"Ace": 1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10, "Jack":10, "Queen":10, "King":10}
 
 card_faces = {
 'back': '🂠',
-'sa' :'🂡',
-'s2' :'🂢',
-'s3' :'🂣',
-'s4' :'🂤',
-'s5' :'🂥',
-'s6' :'🂦',
-'s7' :'🂧',
-'s8' :'🂨',
-'s9' :'🂩',
-'s1':'🂪',
-'sj':'🂫',
-'sq':'🂭',
-'sk':'🂮',
-'ha' :'🂱',
-'h2' :'🂲',
-'h3' :'🂳',
-'h4' :'🂴',
-'h5' :'🂵',
-'h6' :'🂶',
-'h7' :'🂷',
-'h8' :'🂸',
-'h9' :'🂹',
-'h1':'🂺',
-'hj':'🂻',
-'hq':'🂽',
-'hk':'🂾',
-'da' :'🃁',
-'d2' :'🃂',
-'d3' :'🃃',
-'d4' :'🃄',
-'d5' :'🃅',
-'d6' :'🃆',
-'d7' :'🃇',
-'d8' :'🃈',
-'d9' :'🃉',
-'d1':'🃊',
-'dj':'🃋',
-'dq':'🃍',
-'dk':'🃎',
-'ca' :'🃑',
-'c2' :'🃒',
-'c3' :'🃓',
-'c4' :'🃔',
-'c5' :'🃕',
-'c6' :'🃖',
-'c7' :'🃗',
-'c8' :'🃘',
-'c9' :'🃙',
-'c1':'🃚',
-'cj':'🃛',
-'cq':'🃝',
-'ck':'🃞'}
-
+'sac' :'🂡',
+'stw' :'🂢',
+'sth' :'🂣',
+'sfo' :'🂤',
+'sfi' :'🂥',
+'ssi' :'🂦',
+'sse' :'🂧',
+'sei' :'🂨',
+'sni' :'🂩',
+'ste':'🂪',
+'sja':'🂫',
+'squ':'🂭',
+'ski':'🂮',
+'hac' :'🂱',
+'htw' :'🂲',
+'hth' :'🂳',
+'hfo' :'🂴',
+'hfi' :'🂵',
+'hsi' :'🂶',
+'hse' :'🂷',
+'hei' :'🂸',
+'hni' :'🂹',
+'hte':'🂺',
+'hja':'🂻',
+'hqu':'🂽',
+'hki':'🂾',
+'dac' :'🃁',
+'dtw' :'🃂',
+'dth' :'🃃',
+'dfo' :'🃄',
+'dfi' :'🃅',
+'dsi' :'🃆',
+'dse' :'🃇',
+'dei' :'🃈',
+'dni' :'🃉',
+'dte':'🃊',
+'dja':'🃋',
+'dqu':'🃍',
+'dki':'🃎',
+'cac' :'🃑',
+'ctw' :'🃒',
+'cth' :'🃓',
+'cfo' :'🃔',
+'cfi' :'🃕',
+'csi' :'🃖',
+'cse' :'🃗',
+'cei' :'🃘',
+'cni' :'🃙',
+'cte':'🃚',
+'cja':'🃛',
+'cqu':'🃝',
+'cki':'🃞'}
 
 
 class Card:
@@ -87,7 +87,7 @@ class Deck:
         return 'Deck: {} {} cards'.format(self.cards, len(self.cards))
 
     def initialize_deck(self):
-        return [Card(s, r, v, card_faces[s[0].lower() + str(r[0]).lower()]) for s in suits for r, v in rank.items()]
+        return [Card(s, r, v, card_faces[s[0].lower() + str(r[:2]).lower()]) for s in suits for r, v in rank._asdict().items()]
 
     def shuffle_deck(self):
         print("shuffling deque")
@@ -113,6 +113,17 @@ class Hand:
     def add_card(self, card):
         self.cards.append(card)
 
+    def number_named(self, number):
+        number_names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
+                        'twelve',
+                        'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
+        pre_number = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+
+        if number < 21:
+            return number_names[number]
+        else:
+            return pre_number[int(str(number)[0])] + number_names[int(str(number)[1])]
+
     def score(self):
         ace = 0
         soft = False
@@ -135,7 +146,7 @@ class Hand:
                     continue
                     # sum += card.value
         # return sum + (soft * " soft")
-        return "{} {}".format(("Soft" if soft else "Hard"), sum)
+        return "{} {}".format(("Soft" if soft else "Hard"), self.number_named(sum).capitalize())
 
 
 class Dealer_hand(Hand):
@@ -184,7 +195,7 @@ class Game21:
 
         for i in range(self.num_players):
             print("")
-            print("{} {}".format( "Player"+str(i), self.table["Player"+str(i+1)]) )
+            print("{} {}".format( "Player"+str(i+1), self.table["Player"+str(i+1)]) )
 
 
 

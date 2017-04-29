@@ -265,6 +265,7 @@ class Game21:
 
 
 class GAME:
+    # variable = hh
 
     def __init__(self):
         self.contraband = Deck()

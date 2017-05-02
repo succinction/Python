@@ -139,8 +139,8 @@ class Hand:
 
     def number_named(self, number):
         number_names = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven',
-                        'twelve',
-                        'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
+                        'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
+                        'twenty']
         pre_number = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
 
         if number < 21:
@@ -172,6 +172,17 @@ class Dealer_hand(Hand):
             return self.cards[0]
         else:
             return "[unrevealed card]"
+
+    def score(self):
+        if self.playing:
+            sum, soft = self.score_number(True)
+            return "{} {} {}".format(("Soft" if soft else "Hard"), self.number_named(sum).capitalize(), " BUSTED!" if self.busted() else '')
+            # return self.cards[0]
+        else:
+            sum = self.cards[1].value
+            return "{} {} ".format(self.number_named(sum).capitalize(), " BUSTED!" if self.busted() else '')
+
+
 
     def __repr__(self):
         return 'Dealer Hand: {} {} {}'.format(self.is_playing(), self.cards[1:], self.score())
@@ -291,7 +302,8 @@ class GAME:
         #
             print(self.game.status)
         #
-            play = input("\n{}, Hit? [enter] or Hold [space + enter]? ({}) ".format('Player' + str(self.player), self.game.table["Player" + str(self.player)].score_number()))
+            hscore =  self.game.table["Player" + str(self.player)].score_number()
+            play = input("\n{}, ({}) \nHit? [enter] or Hold [space + enter]? ({}) ".format('Player' + str(self.player), hscore, hscore))
         #
             if play == "": # hit
                 bust = self.game.hit(self.player)

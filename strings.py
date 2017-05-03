@@ -12,7 +12,7 @@ a = 'hello '
 b = 'world'
 print(a.capitalize() + b.capitalize())
 
-print (a[:1] + a[1].capitalize() + a[2:] + b  )
+print (a[:1] + a[1].capitalize() + a[2:] + b)
 
 print ("2 {first} {frog}".format(first=a, frog=b))
 print ("3 {} {}".format(a, b))

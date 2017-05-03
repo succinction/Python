@@ -1,6 +1,4 @@
-
 def fb(n):
-
     for i in range(int(n)):
         i += 1
         x = ''
@@ -13,7 +11,7 @@ def fb(n):
         else:
             print(x)
 
+
 fb(input("How many times? : "))
 
-
-print( (1==1) * 5 )
+print((1 == 1) * 5)

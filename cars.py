@@ -149,10 +149,10 @@ class ParkingLot:
 
     def retrieve(self):
         self.print_lot()
-        q = input('Which space number would you like to retrieve?: ')
-        if int(q) in range(1, self.spaces + 1) and self.spot[self.space_key[int(q)]] is not None:
-            self.spot[self.space_key[int(q)]] = None
-            self.remove_string(int(q))
+        q = int(input('Which space number would you like to retrieve?: '))
+        if q in range(1, self.spaces + 1) and self.spot[self.space_key[q-1]] is not None:
+            self.spot[self.space_key[q-1]] = None
+            self.remove_string(q)
             self.spaces_left += 1
         else:
             print('There is no vehicle in that spot.')
@@ -173,7 +173,7 @@ class ParkingLot:
                 print('I did not understand that. Please try again.')
 
 
-plot = ParkingLot(9)
+plot = ParkingLot(11)
 
 # plot = ParkingLot(5)
 plot.main_interface()

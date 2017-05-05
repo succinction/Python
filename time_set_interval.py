@@ -1,37 +1,37 @@
-# import time
-# starttime = time.time()
-# settimeout = 1.0
-# while True:
-#     print("tick")
-#
-#
-#     time.sleep(settimeout - ((time.time() - starttime) % settimeout))
+import time
+starttime = time.time()
+settimeout = 1.0
+while True:
+    print("tick")
+
+
+    time.sleep(settimeout - ((time.time() - starttime) % settimeout))
 
     # input("Testing for concurency : enter ")
 
 ############# WORKS ######################
 
-
-import sched, time
-s = sched.scheduler(time.time, time.sleep)
-
-
-
-def stuff():
-    print("more stuff")
-    input("now what? : ")
-
-
-def do_something(sc):
-    print("Doing stuff...")
-
-    s.enter(.5, 1, do_something, (sc,))
-    stuff()
-
-    # do your stuff
-
-s.enter(.5, 1, do_something, (s,))
-s.run()
+#
+# import sched, time
+# s = sched.scheduler(time.time, time.sleep)
+#
+#
+#
+# def stuff():
+#     print("more stuff")
+#     input("now what? : ")
+#
+#
+# def do_something(sc):
+#     print("Doing stuff...")
+#
+#     s.enter(.5, 1, do_something, (sc,))
+#     stuff()
+#
+#     # do your stuff
+#
+# s.enter(.5, 1, do_something, (s,))
+# s.run()
 
 
 

@@ -15,5 +15,14 @@ def quantify_words(filename):
 
 # p = "Red touching black is a friend of Jack, Red touching yellow can kill a fellow."
 
-quantify_words(filename)
+# quantify_words(filename)
+quantify_words(input("File? : "))
 print(dictionary)
+print("#######################")
+
+d = dictionary
+s = [(k, d[k]) for k in sorted(d, key=d.get, reverse=True)]
+for k, v in s:
+    print(k, v)
+
+

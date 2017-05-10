@@ -1,0 +1,90 @@
+@import 'vars';
+
+.iconWrapper {
+  display: flex;
+
+}
+div {
+  color: $text-color;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+}
+
+main {
+  color: $text-color;
+}
+
+header {
+  background: #999;
+  h1 {
+    background: #fff;
+    p {
+      color: #4F5D75;
+    }
+  }
+}
+
+
+h1, h2, h3 {
+  color: $text-color;
+}
+
+
+@for $i from 1 through length($photos){
+  .photos li:nth-child(#{$i}){
+    background: url(nth($photos, $i))
+  }
+}
+
+@each $name in map-keys($colors) {
+  .image-#{$name} {
+    $current-color: map-get($colors, $name);
+    border: solid $current-color;
+  }
+}
+
+@while $types > 0 {
+  .while-#{$types} {
+    width: $type-width + $types;
+    $types: $types - 1;
+
+  }
+}
+
+@mixin background-mixin($boolean){
+  @if $boolean == true {
+    height: 100px;
+    background: #000;
+  } @else {
+    height: 200px;
+    background: blue;
+  }
+}
+
+.aside-1 {
+  height: 100px;
+
+}
+
+.aside-2 {
+  @extend .aside-1;
+  background:#444;
+
+}
+
+.aside-4 {
+  @include background-mixin(false)
+
+}
+
+.photos {
+  display:flex;
+  justify-content: center;
+  list-style: none;
+  flex-wrap: wrap;
+
+}

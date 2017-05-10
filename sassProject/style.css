@@ -1,0 +1,102 @@
+.iconWrapper {
+  display: flex; }
+
+div {
+  color: #923455; }
+  div img {
+    width: 100px;
+    height: 100px; }
+
+main {
+  color: #923455; }
+
+header {
+  background: #999; }
+  header h1 {
+    background: #fff; }
+    header h1 p {
+      color: #4F5D75; }
+
+h1, h2, h3 {
+  color: #923455; }
+
+.photos li:nth-child(1) {
+  background: url("https://visualhunt.com/photos/l/7/flower-bouquet-bunch-daisys.jpg"); }
+
+.photos li:nth-child(2) {
+  background: url("https://visualhunt.com/photos/l/7/flower-tropical-petal.jpg"); }
+
+.photos li:nth-child(3) {
+  background: url("https://visualhunt.com/photos/l/7/bloom-flower-petal.jpg"); }
+
+.photos li:nth-child(4) {
+  background: url("https://visualhunt.com/photos/l/7/petal-flora-flower.jpg"); }
+
+.photos li:nth-child(5) {
+  background: url("https://visualhunt.com/photos/l/7/botanical-flower-flora.jpg"); }
+
+.photos li:nth-child(6) {
+  background: url("https://visualhunt.com/photos/l/7/rose-flower-bloom.jpg"); }
+
+.photos li:nth-child(7) {
+  background: url("https://visualhunt.com/photos/l/7/coffee-flatlay-sunflower.jpg"); }
+
+.photos li:nth-child(8) {
+  background: url("https://visualhunt.com/photos/l/8/flower-petal.jpg"); }
+
+.image-1 {
+  border: solid #EF8354; }
+
+.image-2 {
+  border: solid #BFC0C0; }
+
+.image-3 {
+  border: solid #A5FFD6; }
+
+.image-4 {
+  border: solid #84DCC6; }
+
+.image-5 {
+  border: solid #4F5D75; }
+
+.image-6 {
+  border: solid #2D3142; }
+
+.image-7 {
+  border: solid #33658A; }
+
+.image-8 {
+  border: solid #2F4858; }
+
+.while-5 {
+  width: 55px; }
+
+.while-4 {
+  width: 54px; }
+
+.while-3 {
+  width: 53px; }
+
+.while-2 {
+  width: 52px; }
+
+.while-1 {
+  width: 51px; }
+
+.aside-1, .aside-2 {
+  height: 100px; }
+
+.aside-2 {
+  background: #444; }
+
+.aside-4 {
+  height: 200px;
+  background: blue; }
+
+.photos {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  flex-wrap: wrap; }
+
+/*# sourceMappingURL=style.css.map */

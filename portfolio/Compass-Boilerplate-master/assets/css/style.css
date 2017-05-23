@@ -1,4 +1,4 @@
-/* line 34, ../compass/sass/style.scss */
+/* line 35, ../compass/sass/style.scss */
 body, html {
   font-family: 'Aclonica', sans-serif;
   font-size: 1em;
@@ -6,8 +6,30 @@ body, html {
   display: flex;
   flex-direction: column;
 }
+/* line 10, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/layout/_sticky-footer.scss */
+body html, body body, html html, html body {
+  height: 100%;
+}
+/* line 12, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/layout/_sticky-footer.scss */
+body #root, html #root {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -100px;
+}
+/* line 18, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/layout/_sticky-footer.scss */
+body #root #root_footer, html #root #root_footer {
+  height: 100px;
+}
+/* line 20, ../../../../../../../../../../Library/Ruby/Gems/2.0.0/gems/compass-core-1.0.3/stylesheets/compass/layout/_sticky-footer.scss */
+body #footer, html #footer {
+  clear: both;
+  position: relative;
+  height: 100px;
+}
 
-/* line 49, ../compass/sass/style.scss */
+/* line 50, ../compass/sass/style.scss */
 video {
   position: fixed;
   top: 50%;
@@ -20,32 +42,26 @@ video {
   z-index: -1;
 }
 
-/* line 61, ../compass/sass/style.scss */
-#kohead {
-  position: relative;
-  top: 87%;
-  max-width: 100%;
+/* line 62, ../compass/sass/style.scss */
+#footer {
+  margin: 10px;
+  border-radius: 5px;
+  height: 100px;
+  background: url("../images/header_ko.png"), no-repeat;
 }
 
-/* line 67, ../compass/sass/style.scss */
+/* line 74, ../compass/sass/style.scss */
 pre {
   font-size: 1em;
   margin: 0 auto;
 }
 
-/* line 72, ../compass/sass/style.scss */
-p {
-  font-size: 2vw;
-  margin: 0 auto;
-  text-align: center;
-}
-
 /* line 79, ../compass/sass/style.scss */
 .film {
   padding: 40px;
-  margin: 0px;
+  margin: 10px;
   border-radius: 5px;
-  background: #f7fdff;
+  background: rgba(247, 253, 255, 0.9);
 }
 
 /* line 87, ../compass/sass/style.scss */
@@ -65,93 +81,104 @@ nav {
 }
 /* line 104, ../compass/sass/style.scss */
 nav p {
+  margin: 0 auto;
   top: 0;
   align-self: baseline;
   font-size: 9vw;
 }
-/* line 110, ../compass/sass/style.scss */
+/* line 111, ../compass/sass/style.scss */
 nav #spacer {
   flex-grow: 1;
 }
-/* line 115, ../compass/sass/style.scss */
+/* line 116, ../compass/sass/style.scss */
 nav ul {
   display: flex;
   align-self: baseline;
   flex-direction: row;
   list-style: none;
 }
-/* line 124, ../compass/sass/style.scss */
+/* line 125, ../compass/sass/style.scss */
 nav a {
   text-decoration: none;
   color: #cdf7ff;
 }
-/* line 129, ../compass/sass/style.scss */
+/* line 130, ../compass/sass/style.scss */
 nav a:hover {
   text-decoration: underline;
 }
 
-/* line 135, ../compass/sass/style.scss */
+/* line 136, ../compass/sass/style.scss */
 .splash {
   height: 100%;
   display: flex;
   justify-content: center;
 }
-/* line 142, ../compass/sass/style.scss */
+/* line 143, ../compass/sass/style.scss */
 .splash #headshot {
   margin: 30px;
   border-radius: 50%;
-  background: url("../images/me_kitty.jpg");
+  background: url("../images/me_kitty_crop.jpg");
   height: 250px;
   width: 250px;
   background-size: cover;
-  background-position-x: -70px;
+  background-position-x: -67px;
   background-position-y: 0;
 }
 
-/* line 154, ../compass/sass/style.scss */
+/* line 155, ../compass/sass/style.scss */
 svg {
   height: 50px;
   width: 50px;
 }
 
-/* line 161, ../compass/sass/style.scss */
+/* line 164, ../compass/sass/style.scss */
+.poem p {
+  padding-left: 3em;
+  text-indent: -3em;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+/* line 173, ../compass/sass/style.scss */
 .pngs {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-/* line 167, ../compass/sass/style.scss */
+/* line 179, ../compass/sass/style.scss */
 .pngs img {
+  margin: 0px;
   position: relative;
-  display: none;
+  display: block;
   width: auto;
   height: auto;
   max-width: 100%;
   max-height: 100%;
-  padding-top: 60%;
-  padding-bottom: 90%;
+  padding-bottom: 50%;
+  background: #f7fdff;
+  background-size: 700px;
 }
-/* line 179, ../compass/sass/style.scss */
+/* line 195, ../compass/sass/style.scss */
 .pngs img:nth-child(1) {
   display: block;
 }
-/* line 182, ../compass/sass/style.scss */
+/* line 198, ../compass/sass/style.scss */
 .pngs img:nth-child(3) {
   display: block;
 }
-/* line 185, ../compass/sass/style.scss */
+/* line 201, ../compass/sass/style.scss */
 .pngs img:nth-child(7) {
   display: block;
 }
 
-/* line 191, ../compass/sass/style.scss */
+/* line 207, ../compass/sass/style.scss */
 #circle-div {
   display: none;
   flex-direction: column;
   align-items: center;
 }
 
-/* line 207, ../compass/sass/style.scss */
+/* line 223, ../compass/sass/style.scss */
 .projects {
   color: #fff;
   display: flex;
@@ -162,7 +189,7 @@ svg {
   padding: 20px;
   justify-content: center;
 }
-/* line 216, ../compass/sass/style.scss */
+/* line 232, ../compass/sass/style.scss */
 .projects li {
   transition: 0.3s;
   width: 250px;
@@ -172,218 +199,218 @@ svg {
   justify-content: space-around;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(1) {
   background: #4f4da4;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(1):hover {
   background: #363570;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(2) {
   background: #5d5da8;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(2):hover {
   background: #404078;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(3) {
   background: #6b6bae;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(3):hover {
   background: #484884;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(4) {
   background: #8585c0;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(4):hover {
   background: #5555a4;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(5) {
   background: #8585c0;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(5):hover {
   background: #5555a4;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(6) {
   background: #6b6bae;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(6):hover {
   background: #484884;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(7) {
   background: #5d5da8;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(7):hover {
   background: #404078;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(8) {
   background: #4f4da4;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(8):hover {
   background: #363570;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(9) {
   background: #6fba64;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(9):hover {
   background: #4b9141;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(10) {
   background: #7abe6e;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(10):hover {
   background: #529a45;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(11) {
   background: #7fc573;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(11):hover {
   background: #53a745;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(12) {
   background: #84c777;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(12):hover {
   background: #57ab46;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(13) {
   background: #84c777;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(13):hover {
   background: #57ab46;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(14) {
   background: #7fc573;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(14):hover {
   background: #53a745;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(15) {
   background: #7abe6e;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(15):hover {
   background: #529a45;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(16) {
   background: #6fba64;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(16):hover {
   background: #4b9141;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(17) {
   background: #c9b65f;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(17):hover {
   background: #a49137;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(18) {
   background: #ccb869;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(18):hover {
   background: #ae963b;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(19) {
   background: #d1c068;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(19):hover {
   background: #b5a137;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(20) {
   background: #d8c778;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(20):hover {
   background: #c7ae3d;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(21) {
   background: #d8c778;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(21):hover {
   background: #c7ae3d;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(22) {
   background: #d1c068;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(22):hover {
   background: #b5a137;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(23) {
   background: #ccb869;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(23):hover {
   background: #ae963b;
 }
 
-/* line 227, ../compass/sass/style.scss */
+/* line 243, ../compass/sass/style.scss */
 .projects li:nth-child(24) {
   background: #c9b65f;
 }
-/* line 230, ../compass/sass/style.scss */
+/* line 246, ../compass/sass/style.scss */
 .projects li:nth-child(24):hover {
   background: #a49137;
 }

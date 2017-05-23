@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My Awesome Page</title>
+        <style type="text/css">
+        </style>
+    </head>
+    <body>
+        <!-- content goes here -->
+        <input type="text" id="inn">
+        <button id="checkVowel">Check Vowel</button>
+        <div id="message">
+            <ul></ul>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!--<script src="vowel.js"></script>-->
+        <script type="text/javascript">
+            $('#checkVowel').click(function () {
+                event.preventDefault();
+                var inpt = $('#inn').val();
+                var vees = ['a', 'e', 'i', 'o', 'u'];
+                var verdict = (vees.indexOf(inpt.toLowerCase()) != -1) ? "is VOWEL" : "is NOT vowel";
+                $('#message ul').append('<li>' + inpt + ' : ' + verdict + '</li>')
+            })
+        </script>
+    </body>
+</html>

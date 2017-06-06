@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <style>
+        .container {
+            height: 600px;
+            width: 600px;
+            margin-right: auto;
+            margin-left: auto;
+            background-color: cadetblue;
+            background-size: cover;
+            display: flex;
+        }
+        article {
+            flex: auto;
+            align-items: center;
+            height: 200px;
+            width: 300px;
+            background-color: rgba(212, 212, 212, 0.5);
+            font-family: Arial,serif;
+            font-size: larger;
+            text-align: center;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <article>
+        <h1>Your Local Weather</h1>
+        <span id="location">Location</span>
+        <br>
+        <button id="getLoc">GET WEATHER</button>
+        <br>
+        <span id="weather">...</span>
+    </article>
+</div>
+<script>
+    var x = document.getElementById("location");
+    var getLocation = function () {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+    var lat;
+    var lon;
+    function showPosition(position) {
+        lat = position.coords.latitude
+        lon = position.coords.longitude
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+            "<br>Longitude: " + position.coords.longitude;
+        newWeather();
+    }
+    $('#getLoc').click(getLocation)
+    const weatherImages = {
+        "Clear": "img/clear.jpg",
+        "Atmosphere": "img/atmosphere.jpg",
+        "Rain": "img/rain.jpg",
+        "Thunderstorm": "img/thunderstorm.jpg",
+        "Drizzle": "img/drizzle.jpg",
+        "Extreme": "img/extreme.jpg",
+        "Snow": "img/snow.jpg",
+        "Additional": "img/additional.jpg",
+        "Clouds": "img/clouds.jpg"
+    }
+    function randomCondition() {
+//        var obj = weatherImages;
+//        var index = Math.floor(Math.random() * Object.keys(obj).length);
+//        var key = Object.keys(obj)[index]
+//        var value = obj[key];
+//        return [key, value];
+        // ALT TWO LINE same as above 5:
+        var index = Math.floor(Math.random() * Object.keys(weatherImages).length);
+        return [Object.keys(weatherImages)[index], weatherImages[Object.keys(weatherImages)[index]] ]
+    }
+    var newWeather = function () {
+        $.ajax({
+            url: "http://api.openweathermap.org/data/2.5/weather",
+            type: "GET",
+            data: {
+                'APPID': 'c8eac569cc2d3fdfcacf8e3d12ab728f',
+                'units': "imperial",
+                'lat': lat,
+                'lon': lon
+            },
+            success: function (data) {
+                const imageUrl = randomCondition();
+                $("#weather").html(`${data.name} : ${data.weather[0].description} : ${data.main.temp} degrees <BR> RANDOMIZED: ${imageUrl[0]}`);
+                var cont = $('.container');
+                cont.css('opacity', 0.1);
+                cont.css('background-image', 'url("' + imageUrl[1] + '")');
+                cont.fadeTo(666, 1);
+            },
+            error: function (data) {
+                console.log("ERROR", data);
+            }
+        });
+    }
+</script>
+</body>
+</html>

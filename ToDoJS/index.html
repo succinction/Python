@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Test</title>
+    <style>
+        table tr td {
+            border: solid black 1px;
+        }
+        table {
+            width: 100%;
+        }
+        #tableDiv {
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .row1 {
+            width: 90%;
+            text-align: center;
+        }
+        .row2 {
+            width: 10%;
+            text-align: center;
+        }
+        #todoInput {
+            display:none;
+        }
+    </style>
+
+</head>
+<body>
+<div id="tableDiv">
+    <table id="todoList">
+        <tr>
+            <td class="row1">Item</td>
+            <td class="row2">Done</td>
+        </tr>
+    </table>
+    <br>
+    <form action="#">
+    <span id="todoInput">
+        <input type="text" id="todoInputText"> <button id="enter">E nter</button>
+    </span>
+    <br>
+    <button id="addToDo">Add Todo</button>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="todo.js"></script>
+</body>
+</html>
+
